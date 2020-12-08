@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Source Sans Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
@@ -135,16 +135,6 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -172,6 +162,754 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/42%E3%80%81%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/42%E3%80%81%E6%8E%A5%E9%9B%A8%E6%B0%B4/" class="post-title-link" itemprop="url">接雨水</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:21 / Modified: 21:15:48" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="42、接雨水"><a href="#42、接雨水" class="headerlink" title="42、接雨水"></a>42、接雨水</h1><ul>
+<li><p>题目要求：给定 <em>n</em> 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+</li>
+<li><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png" alt="img"></p>
+</li>
+<li><pre><code>输入: [0,1,0,2,1,0,1,3,2,1,2,1]
+输出: 6
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 方法一：暴力解 88.82%</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int trap(int[] height) &#123;</span><br><span class="line">        if(height &#x3D;&#x3D; null || height.length &#x3D;&#x3D; 0)&#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int maxleft &#x3D; 0;</span><br><span class="line">        int maxright &#x3D; 0;</span><br><span class="line">        int ans &#x3D; 0;</span><br><span class="line">        for(int i &#x3D; 0; i &lt; height.length; i++)&#123;</span><br><span class="line">            for(int lk &#x3D; 0; lk &lt;&#x3D; i; lk++)&#123;</span><br><span class="line">                maxleft &#x3D; Math.max(maxleft, height[lk]);</span><br><span class="line">            &#125;</span><br><span class="line">            for(int rk &#x3D; i; rk &lt;&#x3D; height.length - 1; rk++)&#123;</span><br><span class="line">                maxright &#x3D; Math.max(maxright, height[rk]);</span><br><span class="line">            &#125;</span><br><span class="line">            ans +&#x3D; Math.min(maxright, maxleft) - height[i];</span><br><span class="line">            maxleft &#x3D; 0;</span><br><span class="line">            maxright &#x3D; 0;</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p>时间复杂度：O（n^2^）</p>
+</li>
+<li><p>空间复杂度：O(1),没有用到额外空间</p>
+</li>
+<li><p><strong>思路</strong>：根据题意，计算每个位置的存水量，方法为计算出每个位置两边的最大高度，选择最小的一个与之相减，将结果依次相加。</p>
+</li>
+</ul>
+<h2 id="方法二：动态规划"><a href="#方法二：动态规划" class="headerlink" title="方法二：动态规划"></a>方法二：动态规划</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(height == <span class="keyword">null</span> || height.length == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] maxleft = <span class="keyword">new</span> <span class="keyword">int</span>[height.length];</span><br><span class="line">        <span class="keyword">int</span>[] maxright = <span class="keyword">new</span> <span class="keyword">int</span>[height.length];</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        maxleft[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        maxright[height.length -<span class="number">1</span>] = height[height.length - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height.length; i++)&#123;</span><br><span class="line">            maxleft[i] = Math.max(height[i], maxleft[i-<span class="number">1</span>]);   <span class="comment">//转移方程，状态表示最大值</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = height.length - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            maxright[i] = Math.max(height[i], maxright[i+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.length; i++)&#123;</span><br><span class="line">            ans += Math.min(maxleft[i], maxright[i]) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：O（n）用了三个for循环</li>
+<li>空间复杂度：O(n）用了两个n大小数组存储dp状态</li>
+<li><strong>思路</strong>：两个动态规划数组分别表示此下标左边最大值和此下标右边最大值。将两动态数组合并后可得到左右两边较小的值，最终减去当前值则为当前存水量，相比于暴力解，这里使用两个数组提前存储了左右两边最大值，空间换时间。</li>
+</ul>
+<h2 id="方法三：单调递减栈-20-09"><a href="#方法三：单调递减栈-20-09" class="headerlink" title="方法三：单调递减栈 20.09%"></a>方法三：单调递减栈 20.09%</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(height == <span class="keyword">null</span> || height.length == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.length; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; height[i] &gt; height[stack.peek()])&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = stack.pop();</span><br><span class="line">                <span class="keyword">if</span>(stack.isEmpty())&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> distance = i - stack.peek() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> high = Math.min(height[i], height[stack.peek()]) - height[temp];</span><br><span class="line">                ans += high * distance;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：O（n）,每个元素最多访问两次，弹入弹出</li>
+<li>空间复杂度：O(n）最多递归栈为n</li>
+<li><strong>思路</strong>：单调递减栈，遇到比栈顶元素大的情况弹出栈顶元素，开始计算条形块的存水量。<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/">https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/</a></li>
+</ul>
+<h2 id="方法四：双指针法-99-99"><a href="#方法四：双指针法-99-99" class="headerlink" title="方法四：双指针法 99.99%"></a>方法四：双指针法 99.99%</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(height == <span class="keyword">null</span> || height.length == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> lk = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rk = height.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> leftmax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rightmax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(lk &lt; rk)&#123;</span><br><span class="line">            <span class="keyword">if</span>(height[lk] &gt; height[rk])&#123;</span><br><span class="line">                <span class="keyword">if</span>(height[rk] &gt; rightmax)&#123;</span><br><span class="line">                    rightmax = height[rk];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    ans += rightmax - height[rk];</span><br><span class="line">                &#125;</span><br><span class="line">                rk--;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(height[lk] &gt; leftmax)&#123;</span><br><span class="line">                    leftmax = height[lk];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    ans += leftmax - height[lk];</span><br><span class="line">                &#125;</span><br><span class="line">                lk++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：O（n）,遍历一次</li>
+<li>空间复杂度：O(1）没有用到额外元素</li>
+<li><strong>思路</strong>：从动态编程方法的示意图中我们注意到，只要right_max[i]&gt;left_max[i]，积水高度将由 left_max 决定，类似地left_max[i]&gt;right_max[i]。所以我们可以认为如果一端有更高的条形块（例如右端），积水的高度依赖于当前方向的高度（从左到右）。当我们发现另一侧（右侧）的条形块高度不是最高的，我们则开始从相反的方向遍历（从右到左）。<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/">https://leetcode-cn.com/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/</a></li>
+</ul>
+<ul>
+<li>timeline</li>
+</ul>
+<ol>
+<li><del>2020.7.10-</del></li>
+<li>2020.7.11</li>
+<li>2020.7.12</li>
+<li>2020.7.17</li>
+<li>2020.7.24</li>
+<li>2020.8.8</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/10%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/10%E3%80%81%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="post-title-link" itemprop="url">正则表达式匹配</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:21 / Modified: 21:15:38" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="10、正则表达式匹配"><a href="#10、正则表达式匹配" class="headerlink" title="10、正则表达式匹配"></a>10、正则表达式匹配</h1><ul>
+<li><p>题目要求：给你一个字符串 <code>s</code> 和一个字符规律 <code>p</code>，请你来实现一个支持 <code>&#39;.&#39;</code> 和 <code>&#39;*&#39;</code> 的正则表达式匹配。</p>
+</li>
+<li><pre><code>&#39;.&#39; 匹配任意单个字符
+&#39;*&#39; 匹配零个或多个前面的那一个元素
+所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+s 可能为空，且只包含从 a-z 的小写字母。
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 示例1:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+&gt; 输入:
+&gt; s = &quot;aa&quot;
+&gt; p = &quot;a&quot;
+&gt; 输出: false
+&gt; 解释: &quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。
+&gt; <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 示例2：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+&gt;输入:
+&gt;s = &quot;aa&quot;
+&gt;p = &quot;a*&quot;
+&gt;输出: true
+&gt;解释: 因为 &#39;*&#39; 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 &#39;a&#39;。因此，字符串 &quot;aa&quot; 可被视为 &#39;a&#39; 重复了一次。
+&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 示例3：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+&gt;输入:
+&gt;s = &quot;ab&quot;
+&gt;p = &quot;.*&quot;
+&gt;输出: true
+&gt;解释: &quot;.*&quot; 表示可匹配零个或多个（&#39;*&#39;）任意字符（&#39;.&#39;）。
+&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 示例4：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+&gt;输入:
+&gt;s = &quot;aab&quot;
+&gt;p = &quot;c*a*b&quot;
+&gt;输出: true
+&gt;解释: 因为 &#39;*&#39; 表示零个或多个，这里 &#39;c&#39; 为 0 个, &#39;a&#39; 被重复一次。因此可以匹配字符串 &quot;aab&quot;。
+&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 示例5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+&gt;输入:
+&gt;s = &quot;mississippi&quot;
+&gt;p = &quot;mis*is*p*.&quot;
+&gt;输出: false
+&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 方法一：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"></span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p>时间复杂度：</p>
+</li>
+<li><p>空间复杂度：</p>
+</li>
+<li><p><strong>思路</strong>：</p>
+</li>
+</ul>
+<p><strong>TimeLine:</strong></p>
+<ol>
+<li><del>2020.6.3-</del></li>
+<li>2020.6.4</li>
+<li>2020.6.6</li>
+<li>2020.6.10</li>
+<li>2020.6.17</li>
+<li>2020.7.2</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/5%E3%80%81%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/5%E3%80%81%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2/" class="post-title-link" itemprop="url">最长回文字串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:21 / Modified: 21:15:32" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="5、最长回文字串"><a href="#5、最长回文字串" class="headerlink" title="5、最长回文字串"></a>5、最长回文字串</h1><ul>
+<li><p>题目要求：给定一个字符串 <code>s</code>，找到 <code>s</code> 中最长的回文子串。你可以假设 <code>s</code> 的最大长度为 1000。</p>
+</li>
+<li><p>示例1:</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;babad&quot;</span><br><span class="line">输出: &quot;bab&quot;</span><br><span class="line">注意: &quot;aba&quot; 也是一个有效答案。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>示例2：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: &quot;cbbd&quot;</span><br><span class="line">&gt;输出: &quot;bb&quot;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s == <span class="keyword">null</span> || s.length() == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String ans = <span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">int</span> maxlength = <span class="number">0</span>;           <span class="comment">//最大长度</span></span><br><span class="line">        <span class="keyword">int</span> len1 = <span class="number">0</span>, len2 = <span class="number">0</span>;      <span class="comment">// 奇数长度和偶数长度</span></span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">0</span>;      <span class="comment">//回文串起始和结束下标</span></span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">            len1 = helper(s, i, i);</span><br><span class="line">            len2 = helper(s, i-<span class="number">1</span>, i);</span><br><span class="line">            <span class="keyword">if</span>(len1 &gt; maxlength)&#123;</span><br><span class="line">                start = i - len1/<span class="number">2</span>;</span><br><span class="line">                end = i + len1/<span class="number">2</span>;</span><br><span class="line">                maxlength = len1;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(len2 &gt; maxlength)&#123;</span><br><span class="line">                start = i - len2/<span class="number">2</span>;</span><br><span class="line">                end = (i - <span class="number">1</span>) + len2/<span class="number">2</span>;    <span class="comment">//偶数位加长度一半会超出范围，需要减掉1位再加</span></span><br><span class="line">                maxlength = len2;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s.substring(start, end + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">helper</span><span class="params">(String s, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span></span>&#123;  <span class="comment">//取出传入的两中心点扩散后的最大回文长度</span></span><br><span class="line">        <span class="keyword">while</span>(lo &gt;= <span class="number">0</span> &amp;&amp; hi &lt; s.length() &amp;&amp; s.charAt(lo) == s.charAt(hi))&#123;</span><br><span class="line">            lo--;</span><br><span class="line">            hi++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (hi - <span class="number">1</span>) - (lo + <span class="number">1</span>)  + <span class="number">1</span>;     <span class="comment">//这里hi-1和lo+1是因为跳出循环时两值已经改变了，需要还原回去</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：O(n^2^)，for循环遍历n，while循环最大遍历n/2。</li>
+<li>空间复杂度：O(1), 无多余空间。</li>
+<li><strong>思路</strong>：回文串从中心向两边扩散，回文串左右加相同字符还是回文串，所以根据这一特性设计helper函数进行计算。回文串包括奇数和偶数，所以需要两个传入参数，奇数传相同的输入参数，偶数传本身和前一个参数。<strong>补</strong>：对于一个子串而言，如果它是回文串，并且长度大于 2，那么将它首尾的两个字母去除之后，它仍然是个回文串。例如对于字符串 “ababa”，如果我们已经知道“bab” 是回文串，那么 “ababa” 一定是回文串，这是因为它的首尾两个字母都是“a”。</li>
+</ul>
+<h2 id="方法二：中心扩展法"><a href="#方法二：中心扩展法" class="headerlink" title="方法二：中心扩展法"></a>方法二：中心扩展法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.length() &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        String ansStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span> * n - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            left = i/<span class="number">2</span>;</span><br><span class="line">            right = left + i%<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">while</span>(left &gt;= <span class="number">0</span> &amp;&amp; right &lt;= n - <span class="number">1</span> &amp;&amp; s.charAt(left) == s.charAt(right))&#123;</span><br><span class="line">                temp += left == right ? <span class="number">1</span> : <span class="number">2</span>;</span><br><span class="line">                left--;</span><br><span class="line">                right++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(ans &lt; temp)&#123;</span><br><span class="line">                ans = temp;</span><br><span class="line">                ansStr = s.substring(left+<span class="number">1</span>, right);</span><br><span class="line">            &#125;</span><br><span class="line">            temp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ansStr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>TimeLine:</strong></p>
+<ol>
+<li><del>2020.6.3-</del></li>
+<li>2020.6.4</li>
+<li>2020.6.6</li>
+<li>2020.6.10</li>
+<li>2020.6.17</li>
+<li>2020.7.2</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/4%E3%80%81%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/4%E3%80%81%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-title-link" itemprop="url">寻找两个正序数组的中位数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:21 / Modified: 21:15:22" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:21+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="4、寻找两个正序数组的中位数"><a href="#4、寻找两个正序数组的中位数" class="headerlink" title="4、寻找两个正序数组的中位数"></a>4、寻找两个正序数组的中位数</h1><ul>
+<li><p>题目要求：给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。你可以假设 nums1 和 nums2 不会同时为空。</p>
+</li>
+<li><p>示例1:</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 3]</span><br><span class="line">nums2 &#x3D; [2]</span><br><span class="line"></span><br><span class="line">则中位数是 2.0</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>示例2：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;nums1 &#x3D; [1, 2]</span><br><span class="line">&gt;nums2 &#x3D; [3, 4]</span><br><span class="line"></span><br><span class="line">&gt;则中位数是 (2 + 3)&#x2F;2 &#x3D; 2.5</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="方法一：双指针法-62-07"><a href="#方法一：双指针法-62-07" class="headerlink" title="方法一：双指针法   62.07%"></a>方法一：双指针法   62.07%</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] temp = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length + nums2.length];</span><br><span class="line">        <span class="keyword">int</span> k1 = <span class="number">0</span>, k2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(k1 != nums1.length || k2 != nums2.length)&#123;</span><br><span class="line">            <span class="keyword">if</span>(k1 == nums1.length)&#123;</span><br><span class="line">                <span class="keyword">for</span>(;k2 &lt; nums2.length; k2++)&#123;</span><br><span class="line">                    temp[k1 + k2] = nums2[k2];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(k2 == nums2.length)&#123;</span><br><span class="line">                <span class="keyword">for</span>(;k1 &lt; nums1.length; k1++)&#123;</span><br><span class="line">                    temp[k1 + k2] = nums1[k1];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(nums1[k1] &lt;= nums2[k2])&#123;</span><br><span class="line">                temp[k1 + k2] = nums1[k1];</span><br><span class="line">                k1++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                temp[k1 + k2] = nums2[k2];</span><br><span class="line">                k2++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>((k1 + k2)%<span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="keyword">double</span>)(temp[(k1 + k2)/<span class="number">2</span>] + temp[(k1 + k2)/<span class="number">2</span> - <span class="number">1</span>])/<span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="keyword">double</span>)temp[(k1 + k2)/<span class="number">2</span>]; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>时间复杂度：O(a+b)，两个数组都遍历了一次。</p>
+</li>
+<li><p>空间复杂度：O(a+b), a和b分别为两数组长度。</p>
+</li>
+<li><p><strong>思路</strong>：创建一个数组来存储顺序元素，大小为两数组大小之和。使用双指针法，分别指向两个数组的起始位置，每次比较两指针所指元素，将小的一个放入创建好的数组中，之后更新放入元素原来数组的指针，这样循环比较，每个数组只遍历了一次。当出现一个数组遍历完，另一个还没有的情况时，直接判断将没有遍历完的数组加入到新建数组中。</p>
+</li>
+</ul>
+<p><strong>TimeLine:</strong></p>
+<ol>
+<li><del>2020.6.2-</del></li>
+<li>2020.6.3</li>
+<li>2020.6.5</li>
+<li>2020.6.9</li>
+<li>2020.6.16</li>
+<li>2020.7.1</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/3%E3%80%81%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/3%E3%80%81%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">无重复字符的最长子串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:20 / Modified: 21:15:20" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:20+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="3、无重复字符的最长子串"><a href="#3、无重复字符的最长子串" class="headerlink" title="3、无重复字符的最长子串"></a>3、无重复字符的最长子串</h1><ul>
+<li><p>题目要求：给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
+</li>
+<li><p>示例1:</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;abcabcbb&quot;</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>示例2：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: &quot;bbbbb&quot;</span><br><span class="line">&gt;输出: 1</span><br><span class="line">&gt;解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>示例3：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入: &quot;pwwkew&quot;</span><br><span class="line">&gt;输出: 3</span><br><span class="line">&gt;解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">   请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="方法一：滑动窗口法-37-01"><a href="#方法一：滑动窗口法-37-01" class="headerlink" title="方法一：滑动窗口法   37.01%"></a>方法一：滑动窗口法   37.01%</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Set&lt;Character&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rk = <span class="number">0</span>;    <span class="comment">//右指针</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i != <span class="number">0</span>)&#123;</span><br><span class="line">                set.remove(s.charAt(i - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(rk &lt; s.length() &amp;&amp; !set.contains(s.charAt(rk)))&#123;</span><br><span class="line">                set.add(s.charAt(rk));</span><br><span class="line">                rk++;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = Math.max(ans, set.size());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>时间复杂度：O(n)，左指针遍历所有字符。</p>
+</li>
+<li><p>空间复杂度：O(m), m为子串最大长度。</p>
+</li>
+<li><p><strong>思路</strong>：使用双指针法，设我们选择字符串中的第 k 个字符作为起始位置，并且得到了不包含重复字符的最长子串的结束位置为 rk。那么当我们选择第 k+1 个字符作为起始位置时，首先从 k+1 到 rk的字符显然是不重复的，并且由于少了原本的第 k个字符，我们可以尝试继续增大 rk，直到右侧出现了重复字符为止。这样以来，我们就可以使用<strong>「滑动窗口」</strong>来解决这个问题了：</p>
+<p>我们使用两个指针表示字符串中的某个子串（的左右边界）。其中左指针代表着上文中「枚举子串的起始位置」，而右指针即为上文中的rk；在每一步的操作中，我们会将左指针向右移动一格，表示 我们开始枚举下一个字符作为起始位置，然后我们可以不断地向右移动右指针，但需要保证这两个指针对应的子串中没有重复的字符。在移动结束后，这个子串就对应着 以左指针开始的，不包含重复字符的最长子串。我们记录下这个子串的长度。</p>
+<p>在枚举结束后，我们找到的最长的子串的长度即为答案。</p>
+</li>
+</ul>
+<p><strong>TimeLine:</strong></p>
+<ol>
+<li><del>2020.5.31-</del></li>
+<li>2020.6.1</li>
+<li>2020.6.3</li>
+<li>2020.6.7</li>
+<li>2020.6.14</li>
+<li>2020.6.29</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/2%E3%80%81%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/2%E3%80%81%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="post-title-link" itemprop="url">两数相加</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:20 / Modified: 21:15:17" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:20+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="2、两数相加"><a href="#2、两数相加" class="headerlink" title="2、两数相加"></a>2、两数相加</h1><ul>
+<li><p>题目要求：给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+</li>
+<li><p>示例:</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">输出：7 -&gt; 0 -&gt; 8</span><br><span class="line">原因：342 + 465 &#x3D; 807</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="方法一：暴力解-99-93"><a href="#方法一：暴力解-99-93" class="headerlink" title="方法一：暴力解 99.93%"></a>方法一：暴力解 99.93%</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">        ListNode ans = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode temp = ans;</span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(l1 == <span class="keyword">null</span>)&#123;</span><br><span class="line">                l1 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2 == <span class="keyword">null</span>)&#123;</span><br><span class="line">                l2 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> bitSum = l1.val + l2.val + carry;</span><br><span class="line">            <span class="keyword">if</span>(bitSum &lt; <span class="number">10</span>)&#123;</span><br><span class="line">                temp.next = <span class="keyword">new</span> ListNode(bitSum);</span><br><span class="line">                carry = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                temp.next = <span class="keyword">new</span> ListNode(bitSum%<span class="number">10</span>);</span><br><span class="line">                <span class="keyword">if</span>(l1.next == <span class="keyword">null</span> &amp;&amp; l2.next == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    l1.next = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">                    l2.next = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                carry = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            l1 = l1.next;</span><br><span class="line">            l2 = l2.next;</span><br><span class="line">            temp = temp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：O(max(m, n))，假设 m 和 n 分别表示 l1 和 l2 的长度，上面的算法最多重复 max(m,n) 次。</li>
+<li>空间复杂度：O(max(m,n))， 新列表的长度最多为max(m,n)+1</li>
+<li><strong>请注意，我们使用哑结点来简化代码。如果没有哑结点，则必须编写额外的条件语句来初始化表头的值。</strong></li>
+</ul>
+<h1 id="方法二：官方解"><a href="#方法二：官方解" class="headerlink" title="方法二：官方解"></a>方法二：官方解</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    ListNode dummyHead = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    ListNode p = l1, q = l2, curr = dummyHead;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || q != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = (p != <span class="keyword">null</span>) ? p.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = (q != <span class="keyword">null</span>) ? q.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = carry + x + y;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        curr.next = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">        curr = curr.next;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) p = p.next;</span><br><span class="line">        <span class="keyword">if</span> (q != <span class="keyword">null</span>) q = q.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (carry &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        curr.next = <span class="keyword">new</span> ListNode(carry);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummyHead.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>时间复杂度：O(max(m, n))，假设 m 和 n 分别表示 l1 和 l2 的长度，上面的算法最多重复 max(m,n) 次。</p>
+</li>
+<li><p>空间复杂度：O(max(m,n))， 新列表的长度最多为max(m,n)+1</p>
+</li>
+<li><p><strong>思路</strong>：相比上面的解法，这里添加了进位标志位。</p>
+</li>
+</ul>
+<p><strong>TimeLine:</strong></p>
+<ol>
+<li><del>2020.5.31-</del></li>
+<li>2020.6.1</li>
+<li>2020.6.3</li>
+<li>2020.6.7</li>
+<li>2020.6.14</li>
+<li>2020.6.29</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/1%E3%80%81%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_img2.jpg">
+      <meta itemprop="name" content="Ruicong Li">
+      <meta itemprop="description" content="天已大明，曙色仓皇飞遁，远听宛似海涛奔腾...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/08/1%E3%80%81%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 15:23:20 / Modified: 21:15:14" itemprop="dateCreated datePublished" datetime="2020-12-08T15:23:20+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1、两数之和"><a href="#1、两数之和" class="headerlink" title="1、两数之和"></a>1、两数之和</h1><ul>
+<li><p>题目要求：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+</li>
+<li><p>示例:</p>
+<blockquote>
+<p>给定 nums = [2, 7, 11, 15], target = 9</p>
+<p>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="方法一：暴力解"><a href="#方法一：暴力解" class="headerlink" title="方法一：暴力解"></a>方法一：暴力解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; nums.length; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j] == target - nums[i])&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;i, j&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;No two sum solution&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>时间复杂度：<em>O</em>(n^2^）</p>
+<p>每个元素我们都需要遍历整个数组来查找其对应的目标元素，每个元素耗费<em>O</em>(n)时间，所以时间复杂度为<em>O</em>(n^2^)</p>
+</li>
+<li><p>空间复杂度：O(1)</p>
+</li>
+</ul>
+<h2 id="方法二：两遍哈希"><a href="#方法二：两遍哈希" class="headerlink" title="方法二：两遍哈希"></a>方法二：两遍哈希</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">            map.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp = target - nums[j];</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(temp) &amp;&amp; map.get(temp) != j)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;j, map.get(temp)&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;No two sum solution&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：此方法将哈希表中entry的key和value分别对应于元素值和数组下标。首先put方法会覆盖相同key值entry，如果有数组比如{2,2,3,4}，target = 4，那么在第二次遍历时第一个数组元素下标为0，与HashMap&lt;2,1&gt;不同，所以满足题目条件。</p>
+<ul>
+<li><p>时间复杂度：<em>O</em>(n) </p>
+<p>只需要将数组元素放入哈希表，遍历一次，查找为<em>O</em>(1),所以全部为<em>O</em>(n)。</p>
+</li>
+<li><p>空间复杂度：O(n)</p>
+<p>所需空间为哈希表中存储元素数量，存储了n个元素</p>
+</li>
+</ul>
+<h2 id="方法三：排序-双指针"><a href="#方法三：排序-双指针" class="headerlink" title="方法三：排序 + 双指针"></a>方法三：排序 + 双指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/05/Java%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E6%8C%87%E5%8D%97-%E8%80%81%E6%9D%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -195,9 +933,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-05 18:36:51 / Modified: 18:38:26" itemprop="dateCreated datePublished" datetime="2020-12-05T18:36:51+08:00">2020-12-05</time>
+              <time title="Created: 2020-12-05 18:36:51" itemprop="dateCreated datePublished" datetime="2020-12-05T18:36:51+08:00">2020-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-08 21:32:51" itemprop="dateModified" datetime="2020-12-08T21:32:51+08:00">2020-12-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Study/" itemprop="url" rel="index"><span itemprop="name">Java Study</span></a>
+                </span>
             </span>
 
           
@@ -561,6 +1314,13 @@
 
               <time title="Created: 2020-12-05 18:30:43" itemprop="dateCreated datePublished" datetime="2020-12-05T18:30:43+08:00">2020-12-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-08 21:33:12" itemprop="dateModified" datetime="2020-12-08T21:33:12+08:00">2020-12-08</time>
+              </span>
 
           
 
@@ -623,7 +1383,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-08 15:08:55" itemprop="dateModified" datetime="2020-12-08T15:08:55+08:00">2020-12-08</time>
+                <time title="Modified: 2020-12-08 21:33:01" itemprop="dateModified" datetime="2020-12-08T21:33:01+08:00">2020-12-08</time>
               </span>
 
           
@@ -733,13 +1493,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
-      <div class="site-state-item site-state-tags">
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -748,7 +1516,10 @@
         <a href="https://github.com/Ellery-Lee" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ellery-Lee" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/li.ruicong@outlook.com" title="E-Mail → li.ruicong@outlook.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="https://li.ruicong@outlook.com/" title="E-Mail → https:&#x2F;&#x2F;li.ruicong@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/li-rui-cong-39" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;li-rui-cong-39" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>知乎</a>
       </span>
   </div>
 
